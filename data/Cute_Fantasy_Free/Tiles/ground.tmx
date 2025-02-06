@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="18">
+ <tileset firstgid="1" name="floor" tilewidth="144" tileheight="192" tilecount="7" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../Outdoor decoration/Oak_Tree.png" width="64" height="80"/>
+  </tile>
+  <tile id="1">
+   <image source="../Outdoor decoration/Oak_Tree_Small.png" width="96" height="48"/>
+  </tile>
+  <tile id="2">
+   <image source="../Outdoor decoration/Outdoor_Decor_Free.png" width="112" height="192"/>
+  </tile>
+  <tile id="3">
+   <image source="../Outdoor decoration/Bridge_Wood.png" width="144" height="64"/>
+  </tile>
+  <tile id="4">
+   <image source="../Outdoor decoration/Chest.png" width="16" height="16"/>
+  </tile>
+  <tile id="5">
+   <image source="../Outdoor decoration/Fences.png" width="64" height="64"/>
+  </tile>
+  <tile id="6">
+   <image source="../Outdoor decoration/House.png" width="80" height="112"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="8" name="tile" tilewidth="80" tileheight="96" tilecount="8" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="Cliff_Tile.png" width="48" height="96"/>
+  </tile>
+  <tile id="1">
+   <image source="FarmLand_Tile.png" width="48" height="48"/>
+  </tile>
+  <tile id="2">
+   <image source="Grass_Middle.png" width="16" height="16"/>
+  </tile>
+  <tile id="3">
+   <image source="Path_Middle.png" width="16" height="16"/>
+  </tile>
+  <tile id="4">
+   <image source="Path_Tile.png" width="48" height="96"/>
+  </tile>
+  <tile id="5">
+   <image source="Water_Middle.png" width="16" height="16"/>
+  </tile>
+  <tile id="6">
+   <image source="Water_Tile.png" width="48" height="96"/>
+  </tile>
+  <tile id="7">
+   <image source="Beach_Tile.png" width="80" height="48"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="ground" width="30" height="20">
+  <data encoding="csv">
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" gid="5" x="155" y="101.5" width="16" height="16"/>
+  <object id="2" gid="5" x="263" y="129" width="16" height="16"/>
+  <object id="3" gid="5" x="197" y="158" width="16" height="16"/>
+  <object id="4" gid="5" x="232.5" y="97" width="16" height="16"/>
+  <object id="5" gid="5" x="315.5" y="212" width="16" height="16"/>
+  <object id="6" gid="5" x="231.5" y="141.5" width="16" height="16"/>
+  <object id="7" gid="5" x="156.5" y="132.5" width="16" height="16"/>
+  <object id="8" gid="5" x="109.5" y="187" width="16" height="16"/>
+  <object id="9" gid="5" x="194" y="210.5" width="16" height="16"/>
+  <object id="10" gid="5" x="84.5" y="123" width="16" height="16"/>
+  <object id="11" gid="5" x="84.5" y="124" width="16" height="16"/>
+  <object id="12" gid="5" x="93" y="177" width="16" height="16"/>
+  <object id="13" gid="5" x="62" y="206.5" width="16" height="16"/>
+  <object id="14" gid="5" x="62" y="206.5" width="16" height="16"/>
+  <object id="16" gid="1" x="291" y="155.5" width="32" height="40"/>
+ </objectgroup>
+</map>
