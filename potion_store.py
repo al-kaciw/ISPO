@@ -81,7 +81,7 @@ def draw_background(situation, result):
             coin_rect = coin.get_rect(midleft=(price_rect.right - 20, price_rect.centery))
             screen.blit(coin, coin_rect)
 
-
+#
 main_font = pygame.font.Font(None, 42)
 
 bg = pygame.transform.scale(pygame.image.load('assets/background/shop.jpg'), (SCREEN_WIDTH, SCREEN_HEIGHT))
