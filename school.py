@@ -1,4 +1,3 @@
-import pygame.time
 from load_questions import get_questions
 from config import *
 from suara import SpeechRecognizer

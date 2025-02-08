@@ -1,9 +1,6 @@
 import subprocess
 from config import *
-import random
 from load_questions import get_questions
-
-pygame.init()
 
 class Fighter(pygame.sprite.Sprite):
     def __init__(self, name ,image, animation_list, x, y, max_hp, damage, group):
@@ -19,17 +16,18 @@ class Fighter(pygame.sprite.Sprite):
 
         self.animation_list = animation_list
         self.frame_index = 0
-        self.action = 0 # 0 = idle, 1 = attack
+        self.action = 0 # 0 = idle, 2 = attack ,1 = hurt
         self.update_time = pygame.time.get_ticks()
 
     def update(self, animation_type):
-        cooldown = 150 if self.action else 350
+        cooldown = 150 if self.action > 0 else 350
         current_time = pygame.time.get_ticks()
 
         self.image = self.animation_list[self.action][self.frame_index]
         if current_time - self.update_time >= cooldown:
             self.update_time = pygame.time.get_ticks()
             self.frame_index += 1
+
         if self.frame_index >= len(self.animation_list[self.action]):
             self.update_time = pygame.time.get_ticks()
             self.frame_index = 0
@@ -60,6 +58,10 @@ class Fighter(pygame.sprite.Sprite):
         damage_text_group.add(damage_text)
 
         #animate player attack
+        self.action = 2
+        self.frame_index = 0
+
+    def hurt(self):
         self.action = 1
         self.frame_index = 0
 
@@ -217,16 +219,29 @@ forfeit = ActionButton(forfeit_image, forfeit_image.get_size(), (screen_width - 
 player_image = get_image('spritesheet_1', 0, 0, (320, 320), (255, 255, 255))
 player_animation = [
     [get_image('spritesheet_1', (32 * x), 0, (320, 320), (255, 255, 255)) for x in range(6)],
+    [get_image('Enemy', (32 * 4), 0, (320, 320), (255, 255, 255))],
     [get_image('spritesheet_1', (32 * x), 32, (320, 320), (255, 255, 255)) for x in range(7)]
 ]
-enemy_image = pygame.transform.flip(player_image, True, False)
-enemy_image.set_colorkey('white')
+enemy_image = get_image('enemy', 0, 0, (320, 320), '#45bd57')
+enemy_animation = [
+    [get_image('Enemy', 0, 0, (320, 320), '#45bd57')],
+    [get_image('Enemy', 32, 0, (320, 320), '#45bd57')],
+    [get_image('spritesheet_1', (32 * x), 32, (320, 320), (255, 255, 255)) for x in range(7)]
+]
+
+enemy_image1 = get_image('enemy', 64, 0, (320, 320), '#45bd57')
+enemy_animation1 = [
+    [get_image('Enemy', 64, 0, (320, 320), '#45bd57')],
+    [get_image('Enemy', 96, 0, (320, 320), '#45bd57')],
+    [get_image('spritesheet_1', (32 * x), 32, (320, 320), (255, 255, 255)) for x in range(7)]
+]
 
 # initialize    Player and enemy
 fighter_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
 player = Fighter('Player' ,player_image, player_animation, 40, 150, 400, 100, fighter_group)
-enemy = Fighter('Enemy',enemy_image, player_animation, (screen_width - enemy_image.get_width() - 20), 150, 1000, 80, fighter_group)
+enemy = Fighter('Enemy',enemy_image, enemy_animation, (screen_width - enemy_image.get_width() - 20), 150, 1000, 80, fighter_group)
+enemy1 = Fighter('Enemy',enemy_image1, enemy_animation1, (screen_width - enemy_image.get_width() ), 150, 1000, 80, fighter_group)
 
 # game variable
 current_fighter = 1
@@ -286,15 +301,15 @@ while running:
 
                 # player action
                 if player.alive and enemy.alive:
-                    if current_fighter == 1:
-                        attack_cooldown += 1
-                        if attack_cooldown >= attack_wait_time:
-                            #attack
-                            if attack and target is not None:
-                                player.attack(target, correct)
-                                current_fighter += 1
-                                attack_cooldown = 0
-                                action = 0
+                    attack_cooldown += 1
+                    if attack_cooldown >= attack_wait_time:
+                        #attack
+                        if attack and target is not None:
+                            player.attack(target, correct)
+                            target.action = 1
+                            current_fighter += 1
+                            attack_cooldown = 0
+                            action = 0
 
 
             elif action == -1:
