@@ -36,11 +36,11 @@ font = pygame.font.Font(None, 48)
 # Sprite Group
 sprite_group = pygame.sprite.Group()
 
+
 class LanguageScroll(pygame.sprite.Sprite):
     def __init__(self, pos, group, words):
         super().__init__(group)
-        self.image = pygame.Surface((SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.85))
-        self.image.fill('white')
+        self.image = pygame.Surface((SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.85), pygame.SRCALPHA)  # Transparent surface
         self.rect = self.image.get_rect(topleft=pos)
         self.selected = None
         self.selected_word_index = None
@@ -49,8 +49,7 @@ class LanguageScroll(pygame.sprite.Sprite):
         self.choices = words  # Store words list
 
     def draw_choice(self):
-        self.image.fill('white')
-        self.choice_rects = []
+        self.image.fill((0, 0, 0, 0))  # Make background fully transparent
 
         amount_choice = len(self.choices)
         rect_height = self.image.get_height() // amount_choice
@@ -61,14 +60,17 @@ class LanguageScroll(pygame.sprite.Sprite):
             text_rect = text_surface.get_rect(midtop=(self.image.get_width() // 2, y))
 
             rect = pygame.Rect(0, rect_height * i, self.image.get_width(), rect_height)
+
+            # Define box color
             if i in self.correct_answer:
-                box_color = 'green'
+                box_color = (0, 255, 0, 180)  # Green with transparency
             elif self.selected_word_index == i:
-                box_color = '#91251d'
+                box_color = (200,200, 200, 180)  # Black with transparency
             else:
-                box_color = '#e03b2f'
-            pygame.draw.rect(self.image, box_color, rect)
-            pygame.draw.rect(self.image, 'blue', rect, 3)
+                box_color = (255, 255, 255, 180)  # Blue with transparency
+
+            pygame.draw.rect(self.image, box_color, rect, border_radius=20)  # Rounded box
+            pygame.draw.rect(self.image, (0, 0, 0), rect, 3, border_radius=20)  # Solid blue border
 
             self.image.blit(text_surface, text_rect)
             self.choice_rects.append(rect)
@@ -81,14 +83,27 @@ class LanguageScroll(pygame.sprite.Sprite):
                 self.selected_word_index = i
                 return self.selected
         return None
-
 class FeedbackScroll(pygame.sprite.Sprite):
     def __init__(self, word, size, pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface(size)
-        self.rect = self.image.get_rect(topleft=(pos[0] - self.image.get_width() // 2, pos[1] - self.image.get_height() // 2))
+        self.image = pygame.Surface(size, pygame.SRCALPHA)  # Transparent background
+        self.rect = self.image.get_rect(center=pos)
         self.explanation_word = word
         self.font = pygame.font.Font(None, 28)
+
+    def write_feedback(self):
+        max_width = self.image.get_width() - 20  # Padding
+        wrapped_lines = self.wrap_text(max_width)
+
+        # Make rounded black background with transparency
+        pygame.draw.rect(self.image, (0, 0, 0, 200), self.image.get_rect(), border_radius=30)
+
+        y_offset = 10
+        for line in wrapped_lines:
+            text_surface = font.render(line, True, 'white')
+            text_rect = text_surface.get_rect(midtop=(self.image.get_width() // 2, y_offset))
+            self.image.blit(text_surface, text_rect)
+            y_offset += text_surface.get_height() + 5
 
     def wrap_text(self, max_width):
         words = self.explanation_word.split(' ')
@@ -107,20 +122,6 @@ class FeedbackScroll(pygame.sprite.Sprite):
             lines.append(' '.join(current_line))
 
         return lines
-
-    def write_feedback(self):
-        max_width = self.image.get_width() - 20  # Leave some padding
-        wrapped_lines = self.wrap_text(max_width)
-
-        # Clear the image before drawing text
-        self.image.fill('black')
-
-        y_offset = 10  # Starting y position for text
-        for line in wrapped_lines:
-            text_surface = font.render(line, True, 'white')
-            text_rect = text_surface.get_rect(midtop=(self.image.get_width() // 2, y_offset))
-            self.image.blit(text_surface, text_rect)
-            y_offset += text_surface.get_height() + 5
 
 class Microphone(pygame.sprite.Sprite):
     def __init__(self, image, icon, pos):

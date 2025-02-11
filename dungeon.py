@@ -94,7 +94,6 @@ class ActionButton(pygame.sprite.Sprite):
     def __init__(self, image, size, position, color, group):
         pygame.sprite.Sprite.__init__(self, group)
         surf = pygame.Surface(size, pygame.SRCALPHA)
-        surf_rect = surf.get_rect(center=position)
         surf.fill(color)
         surf.blit(image, (0, 0))
 
